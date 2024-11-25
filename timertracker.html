@@ -1,0 +1,145 @@
+<html>
+    <head>
+        <style>
+            h1{
+                font-family: head;
+                text-align: center;
+                color: rgb(0, 4, 81);
+            }
+            .but{
+                text-align: center;
+            }
+            #startbutton{
+                font-family: buttons;
+                width: 100px;
+                height: 50px;
+                border-radius: 5%;
+                color: rgb(0, 4, 81);
+                background-color: rgb(84, 165, 199);
+                font-size: 2em;
+            }
+            #startbutton:hover{
+                color: rgb(120, 0, 20);
+                background-color: rgb(238, 105, 127);
+            }
+            #stopbutton{
+                font-family: buttons;
+                width: 100px;
+                height: 50px;
+                border-radius: 5%;
+                color: rgb(0, 4, 81);
+                background-color: rgb(84, 165, 199);
+                font-size: 2em;
+            }
+            #stopbutton:hover{
+                color: rgb(120, 0, 20);
+                background-color: rgb(238, 105, 127);
+            }
+            #resetbutton{
+                font-family: buttons;
+                width: 100px;
+                height: 50px;
+                border-radius: 5%;
+                color: rgb(0, 4, 81);
+                background-color: rgb(84, 165, 199);
+                font-size: 2em;
+            }
+            #resetbutton:hover{
+                color: rgb(120, 0, 20);
+                background-color: rgb(238, 105, 127);
+            }
+            #time{
+            font-family: timer;
+            font-size: 40px;
+            color: rgb(2, 9, 155);
+            width: 145px;
+            margin-left: 45%;
+            }
+            @font-face {
+                font-family: head;
+                src: url(./Workspace.otf);
+            }
+            @font-face{
+                font-family: buttons;
+                src: url(./Study\ Clash.otf);
+            }
+            @font-face {
+                font-family: timer;
+                src: url(./DS-DIGII.TTF);
+            }
+            .bottom-center {
+            position: fixed;
+            bottom: 150;
+            left: 51%;
+            transform: translateX(-50%);
+        }
+        </style>
+        <script>
+            let s = 0;
+            let e = 0;
+            let TI;
+            let messageDisplayed = { 1: false, 30: false, 60:false }; 
+            function formatTime(time){
+            const hours = Math.floor(time / (1000 * 60 * 60));
+            const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((time % (1000 * 60)) / 1000);
+            return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+        function startTimer() {
+            s = Date.now() - e;
+            TI = setInterval(updateTime, 1000);
+            function updateTime() {
+                e = Date.now() - s;
+                document.getElementById('time').textContent = formatTime(e);
+                const totalMinutes = Math.floor(e / (1000*60));
+                if (totalMinutes>=1 && !messageDisplayed[1] ) {
+                    displayMessage("15 minutes are over!, Keep it up!");
+                    messageDisplayed[1] = true;
+                }
+                if (totalMinutes>=30 && !messageDisplayed[30] ) {
+                    displayMessage("30 minutes are over!, Take a break!");
+                    messageDisplayed[15] = true;
+                }
+                if (totalMinutes>=60 && !messageDisplayed[60] ) {
+                    displayMessage("60 minutes are over!, Well done!");
+                    messageDisplayed[60] = true;
+                }
+            }
+        }
+        function displayMessage(message) {
+                const messageElement = document.createElement('div');
+                messageElement.textContent = message;
+                messageElement.style.marginLeft = '35%';
+                messageElement.style.color = 'rgb(0, 4, 81)';
+                messageElement.style.fontSize = '2em';
+                messageElement.style.fontFamily = 'head';
+                document.body.appendChild(messageElement);
+                setTimeout(() => {
+                    messageElement.remove();
+                }, 3000);
+            }
+        function stopTimer() {
+            clearInterval(TI);
+        }
+        function resetTimer() {
+            clearInterval(TI);
+            e = 0;
+            document.getElementById('time').textContent = "00:00:00";
+        }
+        document.getElementById('startbutton').addEventListener('click', startTimer);
+        document.getElementById('stopbutton').addEventListener('click', stopTimer);
+        document.getElementById('resetbutton').addEventListener('click', resetTimer);
+        </script>
+    </head>
+
+    <body bgcolor="lightblue">
+        <h1>Study Timer</h1>
+        <p class="but">
+            <button id="startbutton" onclick="startTimer()">START</button>
+            <button id="stopbutton" onclick="stopTimer()">STOP</button>
+            <button id="resetbutton" onclick="resetTimer()">RESET</button>
+        </p>
+        <h2 id="time">00:00:00</h2>
+        <img src="./im/peach-sleep.gif" class="bottom-center">
+    </body>
+</html>
