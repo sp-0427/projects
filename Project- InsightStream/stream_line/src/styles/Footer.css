@@ -1,0 +1,42 @@
+footer{
+    background-color: rgba(188, 159, 244, 0.564);
+    position: relative;
+    bottom: 0;
+    /*margin-top: 1000px;*/
+}
+
+.footer{
+    display: flex;
+    justify-content: space-between;
+    padding: 10vh 3vw;
+}
+
+.footer ul{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+}
+
+.footer ul li{
+    color: rgb(0, 0, 0);
+    list-style: none;
+    cursor: pointer;
+}
+
+.footer ul li:hover{
+    color: rgb(158, 82, 251);
+    transform: scaleX(1.1);
+    transition: 0.5s ease-in-out;
+}
+
+footer hr{
+    color: aliceblue;
+}
+
+footer p{
+    color:  rgb(61, 0, 135);
+    margin: 0;
+    text-align: center;
+    padding-bottom: 3vh;
+}
